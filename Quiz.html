@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Quiz</title>
+<style>
+</style>
+<script type="text/javascript">
+
+var pos = 0, test, test_status, question, choice, choices, chA, chB, chC, correct = 0;
+var questions = [
+  ["What does cpu stand for?", "central prossesing unit", "cool people unite", "central power unit", "A"],
+  ["What does gpu stand for?", "graphics power unit", "graphics prossesing unit", "group plug unit", "B"],
+  ["What does pc stand for?", "player character", "public computer", "personal computer", "C"],
+  ["What are Trojans?", "Virus", "Malware", "Worm", "B"],
+  ["A computer uses which type of number system", "decimal", "hexadecimal", "binary", "C"],
+  ["One kilobyte is equal to", "1000 bytes", "100 bytes", "1024 bytes", "C"],
+  ["One Gigabyte is approximately equal to", "1000,000 bytes", "1000,000,000 bytes", "1000,000,000,000 bytes", "B"],
+  ["What command is used to change a string into a number?", "chr", "dec", "int", "C"],
+  ["What is Software?", "Program that runs on hardware", "soft version of internet", "none of the above", "A"],
+  ["What is the name for the circuit board which all the main components of the computer are connected to?", "video card", "motherboard", "cpu", "B"],
+  ["Which of the following is volatile memory?", "ROM", "RAM", "hard disk drive", "B"],
+  ["Which device is responsible for sending graphical information to a monitor or projector?", "sound card", "ROM", "video card", "C"],
+  ["What does BIOS stand for?", "Basic Input Output System", "Broadband Internet Operating System", "Binary Input Output System", "A"],
+  ["How many computer languages are in use?", "50", "20", "2000", "C"],
+  ["What does WWW stand for?", "World Wide Web", "World wide weather", "Wide Width Wickets", "A"],
+  ];
+function get(x){
+  return document.getElementById(x);
+}
+function renderQuestion(){
+  test = get("test");
+  if(pos >= questions.length){
+    test.innerHTML = "<h2>You got "+correct+" of "+questions.length+" questions correct</h2>";
+    get("test_status").innerHTML = "Test completed";
+    pos = 0;
+    correct = 0;
+    return false;
+  }
+  get("test_status").innerHTML = "Question "+(pos+1)+" of "+questions.length;
+  question = questions[pos][0];
+  chA = questions[pos][1];
+  chB = questions[pos][2];
+  chC = questions[pos][3];
+  test.innerHTML = "<h3>"+question+"</h3>";
+  test.innerHTML += "<input type='radio' name='choices' value='A'> "+chA+"<br>";
+  test.innerHTML += "<input type='radio' name='choices' value='B'> "+chB+"<br>";
+  test.innerHTML += "<input type='radio' name='choices' value='C'> "+chC+"<br><br>";
+  test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>";
+}
+function checkAnswer(){
+  choices = document.getElementsByName("choices");
+  for(var i=0; i<choices.length; i++){
+    if(choices[i].checked){
+      choice = choices[i].value;
+    }
+  }
+  if(choice == questions[pos][4]){
+    correct++;
+  }
+  pos++;
+  renderQuestion();
+}
+window.addEventListener("load", renderQuestion, false);
+</script>
+</head>
+<body>
+<h2 id="test_status"></h2>
+<div id="test"></div>
+</body>
+</html>
